@@ -1,11 +1,13 @@
 # Sunday School Curriculum App
 
-### Install Dependencies:
+### To Run the Applicaion locally
+
+> #### First install dependencies
 ```
 npm install
 ```
 
-#### To Run Application:
+> #### Serve Application:
 ```
 ionic serve
 ```
