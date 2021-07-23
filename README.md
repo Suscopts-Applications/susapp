@@ -4,6 +4,7 @@
 
 > #### First install dependencies
 ```
+npm install -g @ionic/cli
 npm install
 ```
 
