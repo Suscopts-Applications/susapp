@@ -1,0 +1,327 @@
+// Flutter code sample for BottomNavigationBar
+//
+// This example shows a [BottomNavigationBar] as it is used within a [Scaffold]
+// widget. The [BottomNavigationBar] has four [BottomNavigationBarItem]
+// widgets, which means it defaults to [BottomNavigationBarType.shifting], and
+// the [currentIndex] is set to index 0. The selected item is amber in color.
+// With each [BottomNavigationBarItem] widget, backgroundColor property is
+// also defined, which changes the background color of [BottomNavigationBar],
+// when that item is selected. The `_onItemTapped` function changes the
+// selected item's index and displays a corresponding message in the center of
+// the [Scaffold].
+
+// import 'dart:html';
+
+import 'dart:html';
+
+import 'package:flutter/material.dart';
+// import 'dart:math';
+
+// import 'package:flutter/services.dart';
+// import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
+// import 'package:implicitly_animated_reorderable_list/transitions.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:provider/provider.dart';
+
+// import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+
+// import 'place.dart';
+import 'search_model.dart';
+// import 'lessons.dart';
+import 'grades_card.dart';
+import 'last_read.dart';
+import 'notes.dart';
+// import 'settings.dart';
+
+void main() => runApp(const MyApp());
+
+/// This is the main application widget.
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  static const String _title = 'Flutter Code Sample';
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: _title,
+      home: MyStatefulWidget(),
+    );
+  }
+}
+
+/// This is the stateful widget that the main application instantiates.
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  final screens = [
+    home_nav(),
+    // Lessons("images/grade 1.JPG", "1.1", "Holy Family"),
+    Last_Read(),
+    Notes(),
+    // Settings()
+  ];
+
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: Settings',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+
+// Main build & application landing & Bottom routing
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search Curriculum '),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: DataSearch());
+              },
+              icon: Icon(Icons.search))
+        ],
+      ),
+      // drawer: Drawer(),
+      body: screens[_selectedIndex],
+
+      // Bottom Navigation
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.play_lesson), label: 'Lessons'),
+          BottomNavigationBarItem(
+              icon: Image.network("images/grade 1.JPG"), label: 'Last Read'
+              // activeIcon: Image.network("images/grade 1.JPG"),
+              ),
+          BottomNavigationBarItem(icon: Icon(Icons.note), label: 'Notes'),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+
+
+
+
+Container home_nav(){
+  return Container (
+    child: new ListView(
+        children: <Widget>[
+          
+          Container(
+              decoration: BoxDecoration( borderRadius: BorderRadius.circular(10) ),
+              // color: Colors.grey[300],
+              child: Wrap(children: [
+                new SizedBox(height: 10),
+                new Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                        child: Text("Grade 1",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                            textAlign: TextAlign.left)),
+                    Expanded(
+                        child: (ElevatedButton.icon(
+                            onPressed: () {},
+                            icon: Icon(Icons.play_lesson),
+                            label: Text("See All"),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              onPrimary: Colors.amber[800],
+                              fixedSize: Size(30, 20),
+                            ))))
+                  ],
+                ),
+                new Container(
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+                    height: 150,
+                    child: new ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        mygrades_card("images/grade 1.JPG", "1.1", "Holy Family"),
+                        mygrades_card("images/grade 1.JPG", "1.1", "Holy Family"),
+                        mygrades_card("images/grade 1.JPG", "1.1", "Holy Family"),
+                        mygrades_card("images/grade 1.JPG", "1.1", "Holy Family"),
+                      ],
+                    )), 
+                    new SizedBox(height: 10)                   
+              ])),              
+          Container(
+              decoration: BoxDecoration( borderRadius: BorderRadius.circular(10) ),
+              // color: Colors.grey[300],
+              child: Wrap(children: [                
+                new Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                        child: Text("Grade 2",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                            textAlign: TextAlign.left)),
+                    Expanded(
+                        child: (ElevatedButton.icon(
+                            onPressed: () {},
+                            icon: Icon(Icons.play_lesson),
+                            label: Text("See All"),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              onPrimary: Colors.amber[800],
+                              fixedSize: Size(30, 20),
+                            ))))
+                  ],
+                ),
+                new Container(
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+                    height: 150,
+                    child: new ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        mygrades_card("images/grade 1.JPG", "2.1", "Holy Family"),
+                        mygrades_card("images/grade 1.JPG", "2.2", "Holy Family"),
+                        mygrades_card("images/grade 1.JPG", "2.3", "Holy Family"),
+                        mygrades_card("images/grade 1.JPG", "2.4", "Holy Family"),
+                      ],
+                    )),                    
+              ])),
+          new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                  child: Text("Grade 3",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      textAlign: TextAlign.left)),
+              Expanded(
+                  child: (ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.play_lesson),
+                      label: Text("See All"),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.transparent,
+                        onPrimary: Colors.amber[800],
+                        fixedSize: Size(30, 20),
+                      ))))
+            ],
+          ),
+          new SizedBox(height: 10),
+          new Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+              height: 150,
+              child: new ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  mygrades_card("images/grade 1.JPG", "2.1", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.2", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.3", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.4", "Holy Family"),
+                ],
+              )),
+          new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                  child: Text("Grade 4",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      textAlign: TextAlign.left)),
+              Expanded(
+                  child: (ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.play_lesson),
+                      label: Text("See All"),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.transparent,
+                        onPrimary: Colors.amber[800],
+                        fixedSize: Size(30, 20),
+                      ))))
+            ],
+          ),
+          new SizedBox(height: 10),
+          new Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+              height: 150,
+              child: new ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  mygrades_card("images/grade 1.JPG", "2.1", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.2", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.3", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.4", "Holy Family"),
+                ],
+              )),
+          new Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                  child: Text("Grade 5",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      textAlign: TextAlign.left)),
+              Expanded(
+                  child: (ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.play_lesson),
+                      label: Text("See All"),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.transparent,
+                        onPrimary: Colors.amber[800],
+                        fixedSize: Size(30, 20),
+                      ))))
+            ],
+          ),
+          new SizedBox(height: 10),
+          new Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+              height: 150,
+              child: new ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  mygrades_card("images/grade 1.JPG", "2.1", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.2", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.3", "Holy Family"),
+                  mygrades_card("images/grade 1.JPG", "2.4", "Holy Family"),
+                ],
+              ))
+        ],
+      ));
+}
