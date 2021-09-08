@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class DataSearch extends SearchDelegate<String> {
   final searches = ["god is Great", "grade 1", "lesson 1.2", "lesson1.3", "lesson 1.4", "grade 2","lesson2.1","lesson 2.2","lesson 2.3"];
-  final recentsearches = ["God is Great","lesson 1.2","lesson 2.3"];
+  final recentsearches = ["God is Great","lesson 1.2","lesson 2.4"];
 
   @override
   List<Widget> buildActions(BuildContext context) {

@@ -15,6 +15,7 @@
 import 'package:flutter/material.dart';
 import 'package:sus_sunday_school/grades_lessons_lists.dart';
 
+import 'lessons.dart';
 import 'search_model.dart';
 // import 'lessons.dart';
 import 'grades_card.dart';
@@ -53,9 +54,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   final screens = [
     home_nav(),
-    // Lessons("images/grade 1.JPG", "1.1", "Holy Family"),
+    //Lessons("images/grade 1.JPG", "1.1", "Holy Family"),
     Last_Read(),
-    Notes(),
+    MainPage(),
     // Settings()
   ];
 

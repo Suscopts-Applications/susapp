@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 Container Lessons(String imageval, String heading, String subhead) {
   return Container(
     width: 130,
